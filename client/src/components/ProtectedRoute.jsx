@@ -1,13 +1,12 @@
 // ProtectedRoute.js
 import { Navigate, useLocation } from 'react-router-dom';
-import Cookies from 'js-cookie';
 import { jwtDecode } from 'jwt-decode';
 import { useSelector } from 'react-redux';
 import { MoonLoader } from 'react-spinners';
 const ProtectedRoute = ({ children }) => {
     const location = useLocation();
     const user = useSelector((state) => state.user.user);
-    const token = Cookies.get('jwttoken');
+    const token =  localStorage.getItem('jwttoken');
 
 
     let decoded;
