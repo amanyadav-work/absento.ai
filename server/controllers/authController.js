@@ -40,7 +40,6 @@ const login = async (req, res) => {
             res.cookie('jwttoken', token, {
                 secure: true,
                 sameSite: 'None',
-                domain: '.vercel.app' // Shared domain between the front-end and back-end
             });
             res.status(201).send({ message: "Operation Successful" });
         });
@@ -122,7 +121,6 @@ const register = async (req, res) => {
         res.cookie('jwttoken', token, {
             secure: true,
             sameSite: 'None',
-            domain: '.vercel.app' // Shared domain between the front-end and back-end
         });
         res.status(201).send({ message: "Operation Successful" });
 
