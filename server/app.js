@@ -41,10 +41,10 @@ app.use('/admin',authenticateToken, adminRoutes);
 app.use('/parent',authenticateToken, parentRoutes);
 app.use('/faculty',authenticateToken, facultyRoutes);
 
-// app.listen(port, () => {
-//     console.log(`Working on port ${port}`);
-// })
+app.listen(port, () => {
+    console.log(`Working on port ${port}`);
+})
 
-module.exports = (req, res) => {
-    app(req, res); // Pass the request and response to the Express app
-  };
+// module.exports = (req, res) => {
+//     app(req, res); // Pass the request and response to the Express app
+//   };
