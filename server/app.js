@@ -32,17 +32,14 @@ app.use(fileupload({
 
 
 app.get('/', (req, res) => {
-    res.send('Welcome to the API!');  // Or any message you want
-});
-app.get('/red', (req, res) => {
-    res.json({mes:"DONTT"});  // Or any message you want
+    res.send('Backend APIs!');  // Or any message you want
 });
 
 app.use('/auth', authRoutes);
-app.use('/user',authenticateToken, userRoutes);
-app.use('/admin',authenticateToken, adminRoutes);
-app.use('/parent',authenticateToken, parentRoutes);
-app.use('/faculty',authenticateToken, facultyRoutes);
+app.use('/user', authenticateToken, userRoutes);
+app.use('/admin', authenticateToken, adminRoutes);
+app.use('/parent', authenticateToken, parentRoutes);
+app.use('/faculty', authenticateToken, facultyRoutes);
 
 // app.listen(port, () => {
 //     console.log(`Working on port ${port}`);
@@ -50,4 +47,4 @@ app.use('/faculty',authenticateToken, facultyRoutes);
 
 module.exports = (req, res) => {
     app(req, res); // Pass the request and response to the Express app
-  };
+};
