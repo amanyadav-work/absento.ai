@@ -19,7 +19,7 @@ mongoose.connect(process.env.MONGODB_ATLAS_URI);
 // mongoose.connect('mongodb://127.0.0.1:27017/ai-attendance');
 
 app.use(cors({
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL,
     credentials: true,
 }));
 app.use(cookieParser())
@@ -35,6 +35,10 @@ app.use('/admin',authenticateToken, adminRoutes);
 app.use('/parent',authenticateToken, parentRoutes);
 app.use('/faculty',authenticateToken, facultyRoutes);
 
-app.listen(port, () => {
-    console.log(`Working on port ${port}`);
-})
+// app.listen(port, () => {
+//     console.log(`Working on port ${port}`);
+// })
+
+module.exports = (req, res) => {
+    app(req, res); // Pass the request and response to the Express app
+  };
