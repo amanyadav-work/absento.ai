@@ -60,14 +60,15 @@ const Dashboard = () => {
   const getAttendance = async () => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem('jwttoken'); 
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/faculty/get-attendance?courseId=${user.course}&collegeId=${user.collegeId}&start=${new Date().setDate(new Date().getDate() - 7)}&end=${new Date().setHours(23, 59, 59, 999)}&range=Daily`;
       const response = await fetch(url, {
-         headers: {
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'application/json', 
-                },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
+
 
       if (!response.ok) {
         throw new Error('Something Went Wrong');
@@ -75,6 +76,7 @@ const Dashboard = () => {
 
       const data = await response.json();
       setAttendanceData(data);
+      console.log("Data:",data);
 
       let chart = [];
       data.map(item => {
@@ -100,13 +102,13 @@ const Dashboard = () => {
   const getStudentsData = async () => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem('jwttoken'); 
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/parent/get-students?id=${user._id}`;
       const response = await fetch(url, {
-         headers: {
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'application/json', 
-                },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -125,13 +127,13 @@ const Dashboard = () => {
   const getStdAttendance = async () => {
     setIsLoading(true);
     try {
-      const token = localStorage.getItem('jwttoken'); 
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/get-student-attendance?start=${addDays(new Date(), -6).getTime()}&end=${new Date().getTime()}&stdId=${selectedStudent}`;
       const response = await fetch(url, {
-         headers: {
-                    'Authorization': `Bearer ${token}`, 
-                    'Content-Type': 'application/json', 
-                },
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -166,7 +168,7 @@ const Dashboard = () => {
       }
     }
   }, [selectedStudent]);
-  
+
 
   const renderPresentToday = () => {
     if (!attendanceData || attendanceData.length === 0) {
@@ -335,7 +337,7 @@ const Dashboard = () => {
             </CardContent>
           </Card>
 
-          <Card className={user.role === "Parent" ? "gap-4":"gap-3"}>
+          <Card className={user.role === "Parent" ? "gap-4" : "gap-3"}>
             <CardHeader className="flex flex-row items-center justify-between space-y-0">
               <CardTitle className="text-sm font-medium">{user.role !== "Parent" ? "Avg. Growth Rate" : "Your Children"}</CardTitle>
               {user.role !== "Parent" && (getGrowthRate() > 0 ?

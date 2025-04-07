@@ -3,7 +3,7 @@ import { ModeToggle } from "./mode-toggle"
 import { Button } from "./ui/button"
 import { useDispatch, useSelector } from 'react-redux';
 import { setUser } from "@/redux/reducers/userReducer";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import Cookies from 'js-cookie';
 import { useTheme } from "@/components/theme-provider"
 import {
@@ -25,12 +25,15 @@ const Header = () => {
     const navigate = useNavigate();
 
     const handleSetUser = async () => {
+        const token = localStorage.getItem('jwttoken');
         const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, {
             method: 'GET',
-            credentials: 'include'
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json',
+            },
         });
         const user = await response.json()
-        const token = Cookies.get('jwttoken');
         const decoded = jwtDecode(token);
         user.role = decoded.role;
         dispatch(setUser(user));
@@ -38,14 +41,14 @@ const Header = () => {
     };
 
     useEffect(() => {
-        const token = Cookies.get('jwttoken');
+        const token = localStorage.getItem('jwttoken');       
         if (!userData?.user && token) {
             handleSetUser();
         }
     }, [])
 
     const handleLogout = () => {
-        Cookies.remove('jwttoken'); // Remove the token from cookies
+        localStorage.removeItem('jwttoken');
         dispatch(setUser(null));
         navigate('/login')
     };

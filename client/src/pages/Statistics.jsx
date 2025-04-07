@@ -46,9 +46,13 @@ const Statistics = () => {
     }
 
     try {
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/faculty/get-attendance?courseId=${user.course || std?.course?._id}&collegeId=${user.collegeId || std?.college?._id}&start=${date.from.getTime()}&end=${date.to.getTime()}&range=${activePeriod}`;
       const response = await fetch(url, {
-        credentials: 'include',
+          headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -85,9 +89,13 @@ const Statistics = () => {
   const getStudentsData = async () => {
     setIsLoading(true);
     try {
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/parent/get-students?id=${user._id}`;
       const response = await fetch(url, {
-        credentials: 'include',
+          headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -108,9 +116,13 @@ const Statistics = () => {
   const getStdAttendance = async () => {
     setIsLoading(true);
     try {
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/get-student-attendance?start=${date.from.getTime()}&end=${date.to.getTime()}&stdId=${selectedStudent}`;
       const response = await fetch(url, {
-        credentials: 'include',
+          headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {

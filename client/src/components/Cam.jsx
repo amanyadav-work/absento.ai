@@ -20,9 +20,13 @@ const Cam = ({ absentReasons, attendanceDone }) => {
     const getStudents = async () => {
         try {
             setLoading(true);
+            const token = localStorage.getItem('jwttoken');
             const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/get-students?courseId=${user.course}&collegeId=${user.collegeId}`;
             const response = await fetch(url, {
-                credentials: 'include',
+                headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
             });
 
             if (!response.ok) {
@@ -135,18 +139,18 @@ const Cam = ({ absentReasons, attendanceDone }) => {
 
                             console.log("Detected Users:", detectedUsersArray, "Non Detected Users:", nonDetectedUsersArray);
                             try {
-
+                                const token = localStorage.getItem('jwttoken');
                                 const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/faculty/mark-attendance?collegeId=${user.collegeId}&courseId=${user.course}`, {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
+                                        'Authorization': `Bearer ${token}`,
                                     },
                                     body: JSON.stringify({
                                         detectedStudents: detectedFullUsersArray,
                                         nonDetectedStudents: nonDetectedUsersArray,
                                         absentReasons,
                                     }),
-                                    credentials: 'include',
                                 });
 
                                 if (response.ok) {

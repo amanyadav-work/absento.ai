@@ -21,9 +21,13 @@ const AiPredictions = ({ attendanceData }) => {
     const getStdAttendance = async () => {
         setIsLoading(true);
         try {
+            const token = localStorage.getItem('jwttoken');
             const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/get-student-attendance?start=${addDays(new Date(), -90).getTime()}&end=${new Date().getTime()}&stdId=${selectedStudent}`;
             const response = await fetch(url, {
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (!response.ok) {
@@ -45,9 +49,13 @@ const AiPredictions = ({ attendanceData }) => {
         setIsLoading(true)
         if (user.role === "Parent") {
             try {
+                const token = localStorage.getItem('jwttoken');
                 const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/parent/get-students?id=${user._id}`;
                 const response = await fetch(url, {
-                    credentials: 'include',
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
                 });
 
                 if (!response.ok) {
@@ -98,7 +106,7 @@ const AiPredictions = ({ attendanceData }) => {
             <div className="h-[90vh] flex justify-center items-center w-full">
                 <MoonLoader size={20} color="gray" />
             </div>
-            : (students?.length>0) ?
+            : (students?.length > 0) ?
                 <>
                     <div className="border bg-muted p-5 my-3">
                         <div className="flex gap-2.5 items-center">

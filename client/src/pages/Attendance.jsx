@@ -84,9 +84,13 @@ const Attendance = () => {
     const getStudents = async () => {
         try {
             setLoading(true);
+            const token = localStorage.getItem('jwttoken');
             const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/get-students?courseId=${user.course}&collegeId=${user.collegeId}`;
             const response = await fetch(url, {
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (!response.ok) {
@@ -109,10 +113,14 @@ const Attendance = () => {
     const getAttendance = async () => {
         try {
             setPageLoading(true);
+            const token = localStorage.getItem('jwttoken');
             const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/faculty/get-attendance?courseId=${user.course}&collegeId=${user.collegeId}&start=${new Date().setHours(0, 0, 0, 0)}&end=${new Date().setHours(23, 59, 59, 999)}`;
 
             const response = await fetch(url, {
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (!response.ok) {

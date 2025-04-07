@@ -132,10 +132,14 @@ const Onboarding = () => {
     const collegeId = user.collegeId || clg_id;
 
     try {
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getcourses?collegeId=${encodeURIComponent(collegeId)}`;
       const response = await fetch(url, {
         method: 'GET',
-        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -198,10 +202,14 @@ const Onboarding = () => {
     });
 
     try {
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/admin/add-college`;
       const response = await fetch(url, {
         method: 'POST',
-        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
         body: formData
       });
 
@@ -231,10 +239,14 @@ const Onboarding = () => {
       formData.append('faceDescriptor', JSON.stringify(faceDescriptor));
 
       try {
+        const token = localStorage.getItem('jwttoken');
         const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/parent/add-student`;
         const response = await fetch(url, {
           method: 'POST',
-          credentials: 'include',
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+          },
           body: formData
         });
 
@@ -260,10 +272,14 @@ const Onboarding = () => {
     const formData = new FormData();
     formData.append('course', data.course);
     try {
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/faculty/add-course`;
       const response = await fetch(url, {
         method: 'PUT',
-        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
         body: formData
       });
 

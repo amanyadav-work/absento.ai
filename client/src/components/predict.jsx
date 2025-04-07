@@ -6,7 +6,7 @@ import { addDays } from 'date-fns';
 import { WandSparkles } from 'lucide-react';
 
 
-const AttendancePrediction = ({ selectedStudent,stdAttendance: attendanceData }) => {
+const AttendancePrediction = ({ selectedStudent, stdAttendance: attendanceData }) => {
   const [predictions, setPredictions] = useState({});
   const [isLoading, setIsLoading] = useState(false);  // Loading state
   const [date, setDate] = useState([])
@@ -51,10 +51,14 @@ const AttendancePrediction = ({ selectedStudent,stdAttendance: attendanceData })
   const getPredictions = async () => {
     setIsLoading(true)
     try {
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/get-prediction?stdId=${selectedStudent}`;
       const response = await fetch(url, {
         method: 'GET',
-        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -62,21 +66,21 @@ const AttendancePrediction = ({ selectedStudent,stdAttendance: attendanceData })
       }
 
       const data = await response.json();
-      
-      if(data?.prediction){
+
+      if (data?.prediction) {
         setPredictions(data.prediction)
         const presentDays = data.prediction.attendance.filter(item => item.status === 'present');
         const formattedDates = presentDays.map(item => new Date(item.date));
         setDate(formattedDates);
-      }else{
-       await generatePredictions()
+      } else {
+        await generatePredictions()
       }
 
     } catch (error) {
       toast.error('Something went wrong, try later!');
     } finally {
       setIsLoading(false);
-    } 
+    }
   }
 
   const generatePredictions = async () => {
@@ -99,14 +103,15 @@ const AttendancePrediction = ({ selectedStudent,stdAttendance: attendanceData })
 
 
     try {
+      const token = localStorage.getItem('jwttoken');
       const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/groq-chat`;
       const response = await fetch(url, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Ensure the request content type is JSON
-        },
         body: JSON.stringify({ prompt: prompt }),
-        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!response.ok) {
@@ -114,42 +119,15 @@ const AttendancePrediction = ({ selectedStudent,stdAttendance: attendanceData })
       }
 
       const data = await response.json();
-      // const data = {
-      //   "attendance": [
-      //     { "date": "Tue Apr 01 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Wed Apr 02 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Thu Apr 03 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Fri Apr 04 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "absent" },
-      //     { "date": "Mon Apr 07 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Tue Apr 08 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Wed Apr 09 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Thu Apr 10 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "absent" },
-      //     { "date": "Fri Apr 11 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "absent" },
-      //     { "date": "Mon Apr 14 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Tue Apr 15 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Wed Apr 16 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Thu Apr 17 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "absent" },
-      //     { "date": "Fri Apr 18 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "absent" },
-      //     { "date": "Mon Apr 21 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Tue Apr 22 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Wed Apr 23 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Thu Apr 24 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "absent" },
-      //     { "date": "Fri Apr 25 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "absent" },
-      //     { "date": "Mon Apr 28 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Tue Apr 29 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" },
-      //     { "date": "Wed Apr 30 2025 00:00:00 GMT+0530 (India Standard Time)", "status": "present" }
-      //   ],
-      //   "reasons": "I expect absence on specific days, such as Fridays, due to a pattern of frequent absences on these days in the historical data. Additionally, factors like weekend absences and historical attendance trends also influence the predictions. For instance, the student has been absent on several Thursdays and Fridays in the past, indicating a possible tendency to take longer weekends. The predictions also take into account the overall attendance rate, with the student being present on most weekdays. However, certain days, like the ones following a sequence of present days, may have a higher likelihood of absence due to potential fatigue or personal reasons. The combination of these factors leads to the predicted attendance for each day next month, excluding Sundays and holidays."
-      // }
 
-    const predictionUrl = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/save-prediction?stdId=${selectedStudent}`;
+      const predictionUrl = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/save-prediction?stdId=${selectedStudent}`;
       const saveResponse = await fetch(predictionUrl, {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json', // Ensure the request content type is JSON
-        },
         body: JSON.stringify({ prediction: data }),
-        credentials: 'include',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
       });
 
       if (!saveResponse.ok) {
@@ -169,8 +147,8 @@ const AttendancePrediction = ({ selectedStudent,stdAttendance: attendanceData })
   }
 
   useEffect(() => {
-    if(selectedStudent)
-    getPredictions();
+    if (selectedStudent)
+      getPredictions();
   }, [attendanceData]);
 
 

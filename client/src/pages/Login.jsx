@@ -50,14 +50,14 @@ const Login = () => {
     formData.append("email", data.email);
     formData.append("password", data.password);
 
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData, credentials: 'include' });
+    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData });
 
     if (response.status === 201) {
       const responseData = await response.json();
       localStorage.setItem('jwttoken', responseData.jwttoken);
 
       toast.success("Faculty has been logged in");
-      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
+      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET',  })).json();
       // dispatch(setUser({ ...userData, role: "Faculty" }));
       // navigate('/dashboard');
 
@@ -86,13 +86,13 @@ const Login = () => {
     formData.append("email", data.email);
     formData.append("password", data.password);
 
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData, credentials: 'include' });
+    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData,  });
 
     if (response.status === 201) {
       const responseData = await response.json();
       localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Admin has been logged in");
-      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
+      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET',  })).json();
 
       const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
 
@@ -120,13 +120,13 @@ const Login = () => {
     formData.append("email", data.email);
     formData.append("password", data.password);
 
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData, credentials: 'include' });
+    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData,  });
 
     if (response.status === 201) {
       const responseData = await response.json();
       localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Parent has been logged in");
-      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
+      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET',  })).json();
 
       const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
       const userData = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, {

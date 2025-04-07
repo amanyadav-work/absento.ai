@@ -140,15 +140,18 @@ const Register = () => {
     const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
       method: 'POST',
       body: formData,
-      credentials: 'include' // This is important to send and receive cookies
-
     });
 
     if (response.status === 201) {
+      const responseData = await response.json();
+      localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Faculty has been created successfully.");
+      const token = localStorage.getItem('jwttoken');
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, {
         method: 'GET',
-        credentials: 'include'
+        headers: {
+          'Authorization': `Bearer ${token}`, // Use the token from localStorage
+        },
       });
       const userData = await response.json()
       dispatch(setUser({ ...userData, role: "Faculty" }));
@@ -179,14 +182,18 @@ const Register = () => {
     const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
       method: 'POST',
       body: formData,
-      credentials: 'include' // Using FormData here
     });
 
     if (response.status === 201) {
+      const responseData = await response.json();
+      localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Admin has been created successfully.");
+      const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, {
         method: 'GET',
-        credentials: 'include'
+        headers: {
+          'Authorization': `Bearer ${token}`, // Use the token from localStorage
+        },
       });
       const userData = await response.json()
       dispatch(setUser({ ...userData, role: "Admin" }));
@@ -220,17 +227,20 @@ const Register = () => {
     const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
       method: 'POST',
       body: formData,
-      credentials: 'include'// Using FormData here
     });
 
-    // Handle the response as needed
-    const result = await response.json();
 
     if (response.status === 201) {
+      const responseData = await response.json();
+      localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Parent has been created successfully.");
+      const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
+
       const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, {
         method: 'GET',
-        credentials: 'include'
+        headers: {
+          'Authorization': `Bearer ${token}`, // Use the token from localStorage
+        },
       });
       const userData = await response.json()
       dispatch(setUser({ ...userData, role: "Parent" }));
@@ -299,7 +309,7 @@ const Register = () => {
                   </div>
 
                   <Button type="submit" className="w-full py-2 px-4" disabled={isLoading}>
-                    {isLoading ? <MoonLoader size={12}/> : "Register Admin"}
+                    {isLoading ? <MoonLoader size={12} /> : "Register Admin"}
                   </Button>
                 </form>
               </CardContent>
@@ -355,7 +365,7 @@ const Register = () => {
                   </div>
 
                   <Button type="submit" className="w-full py-2 px-4" disabled={isLoading}>
-                    {isLoading ? <MoonLoader size={12}/> : "Register Faculty"}
+                    {isLoading ? <MoonLoader size={12} /> : "Register Faculty"}
                   </Button>
                 </form>
               </CardContent>
@@ -404,7 +414,7 @@ const Register = () => {
                   </div>
 
                   <Button type="submit" className="w-full py-2 px-4" disabled={isLoading}>
-                    {isLoading ? <MoonLoader size={12}/> : "Register Parent"}
+                    {isLoading ? <MoonLoader size={12} /> : "Register Parent"}
                   </Button>
                 </form>
               </CardContent>

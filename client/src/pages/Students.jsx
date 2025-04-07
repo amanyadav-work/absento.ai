@@ -25,9 +25,13 @@ const Students = () => {
     const getAllStudents = async () => {
         setLoading(true)
         try {
+            const token = localStorage.getItem('jwttoken');
             const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/parent/get-students?id=${user._id}`;
             const response = await fetch(url, {
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (!response.ok) {
@@ -48,9 +52,13 @@ const Students = () => {
     const getStudents = async (id) => {
         try {
             setLoading(true);
+            const token = localStorage.getItem('jwttoken');
             const url = `${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/get-students?courseId=${user.course}&collegeId=${user.collegeId}`;
             const response = await fetch(url, {
-                credentials: 'include',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (!response.ok) {
