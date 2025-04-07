@@ -37,12 +37,7 @@ const login = async (req, res) => {
             const token = jwt.sign({ email, role }, process.env.JWT_SECRET);
 
             // Set token in cookie and respond with success
-            res.cookie('jwttoken', token, {
-                httpOnly: false,  // Prevent JavaScript access to the cookie
-                secure: true,
-                sameSite: 'None',
-                domain: '.vercel.app',
-            });
+            res.cookie('jwttoken', token);
             res.status(201).send({ message: "Operation Successful" });
         });
     } catch (error) {
@@ -120,12 +115,7 @@ const register = async (req, res) => {
         const token = jwt.sign({ email, role }, process.env.JWT_SECRET);
 
         // Set token in cookie and respond with success
-        res.cookie('jwttoken', token, {
-            httpOnly: false,  // Prevent JavaScript access to the cookie
-            secure: true,
-            sameSite: 'None',
-            domain: '.vercel.app',
-        });
+        res.cookie('jwttoken', token);
         res.status(201).send({ message: "Operation Successful" });
 
     } catch (error) {
