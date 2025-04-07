@@ -40,7 +40,8 @@ const login = async (req, res) => {
             res.cookie('jwttoken', token, {
                 httpOnly: false,  // Prevent JavaScript access to the cookie
                 secure: true,
-                sameSite: 'None', // Allow cross-origin requests (important for CORS)
+                sameSite: 'None',
+                domain: '.vercel.app',
             });
             res.status(201).send({ message: "Operation Successful" });
         });
@@ -122,7 +123,8 @@ const register = async (req, res) => {
         res.cookie('jwttoken', token, {
             httpOnly: false,  // Prevent JavaScript access to the cookie
             secure: true,
-            sameSite: 'None', // Allow cross-origin requests (important for CORS)
+            sameSite: 'None',
+            domain: '.vercel.app',
         });
         res.status(201).send({ message: "Operation Successful" });
 
