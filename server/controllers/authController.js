@@ -37,7 +37,12 @@ const login = async (req, res) => {
             const token = jwt.sign({ email, role }, process.env.JWT_SECRET);
 
             // Set token in cookie and respond with success
-            res.cookie('jwttoken', token);
+            res.cookie('jwttoken', token, {
+                httpOnly: true,
+                secure: true,
+                sameSite: 'None',
+                domain: '.vercel.app' // Shared domain between the front-end and back-end
+            });
             res.status(201).send({ message: "Operation Successful" });
         });
     } catch (error) {
@@ -115,7 +120,12 @@ const register = async (req, res) => {
         const token = jwt.sign({ email, role }, process.env.JWT_SECRET);
 
         // Set token in cookie and respond with success
-        res.cookie('jwttoken', token);
+        res.cookie('jwttoken', token, {
+            httpOnly: true,
+            secure: true,
+            sameSite: 'None',
+            domain: '.vercel.app' // Shared domain between the front-end and back-end
+        });
         res.status(201).send({ message: "Operation Successful" });
 
     } catch (error) {
