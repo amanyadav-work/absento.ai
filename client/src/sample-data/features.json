@@ -1,0 +1,34 @@
+[
+  {
+    "heading": "Start tracking attendance in no time",
+    "subheading": "Simplify attendance management effortlessly",
+    "description": "Absento provides the easiest way to track attendance for your students and teachers. With just a few simple steps, you can get up and running, ensuring accuracy and saving time for both students and faculty.",
+    "cta": "Try Absento today and streamline your attendance management!",
+    "cta_link": "/dashboard",
+    "image": "https://www.jibble.io/wp-content/uploads/2022/04/timecard-calculator-with-lunch.png"
+  },
+  {
+    "heading": "Automated Reports at Your Fingertips",
+    "subheading": "Get real-time data and insights with every attendance mark",
+    "description": "Absento’s real-time analytics automatically generates insightful attendance reports for you. You can track trends, monitor absenteeism, and make informed decisions with ease.",
+    "cta": "Start generating automated reports now!",
+    "cta_link": "/statistics",
+    "image": "https://www.jibble.io/wp-content/uploads/2021/03/Reminder-768x694.png"
+  },
+  {
+    "heading": "Seamless integration with your system",
+    "subheading": "Absento works with your existing platform",
+    "description": "Absento integrates effortlessly with your school’s existing systems. Whether it's learning management systems or other attendance tracking tools, you can easily synchronize everything with Absento.",
+    "cta": "Integrate Absento with your platform today!",
+    "cta_link": "/students",
+    "image": "https://www.jibble.io/wp-content/uploads/2022/02/Reports-Payroll-1-768x555.webp"
+  },
+  {
+    "heading": "Support when you need it most",
+    "subheading": "24/7 customer service for all your needs",
+    "description": "Our team is available round-the-clock to assist you with any issues or questions you may have. Whether it’s technical support or guidance, we’re here to make sure Absento works seamlessly for you.",
+    "cta": "Contact our support team now!",
+    "cta_link": "/dashboard",
+    "image": "https://www.jibble.io/wp-content/uploads/2022/04/timesheets-overtime-768x694.png"
+  }
+]
