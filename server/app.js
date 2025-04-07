@@ -18,21 +18,22 @@ mongoose.connect(process.env.MONGODB_ATLAS_URI);
 
 // mongoose.connect('mongodb://127.0.0.1:27017/ai-attendance');
 
-// app.use(cors({
-//     origin: process.env.FRONTEND_URL,
-//     credentials: true,
-// }));
 app.use(cors({
-    origin: '*',  // Allow all origins
-    methods: ['GET', 'POST', 'PUT', 'DELETE'],  // Allow common methods
-    allowedHeaders: ['Content-Type', 'Authorization'],  // Allow necessary headers
-  }));
+    origin: process.env.FRONTEND_URL,
+    credentials: true,
+}));
+
 app.use(cookieParser())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(fileupload({
     useTempFiles: true
 }));
+
+
+app.get('/', (req, res) => {
+    res.send('Welcome to the API!');  // Or any message you want
+});
 
 app.use('/auth', authRoutes);
 app.use('/user',authenticateToken, userRoutes);
