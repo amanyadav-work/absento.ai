@@ -38,7 +38,7 @@ const login = async (req, res) => {
 
             // Set token in cookie and respond with success
             res.cookie('jwttoken', token, {
-                httpOnly: true,  // Prevent JavaScript access to the cookie
+                httpOnly: false,  // Prevent JavaScript access to the cookie
                 secure: true,
                 sameSite: 'None', // Allow cross-origin requests (important for CORS)
             });
@@ -120,7 +120,7 @@ const register = async (req, res) => {
 
         // Set token in cookie and respond with success
         res.cookie('jwttoken', token, {
-            httpOnly: true,  // Prevent JavaScript access to the cookie
+            httpOnly: false,  // Prevent JavaScript access to the cookie
             secure: true,
             sameSite: 'None', // Allow cross-origin requests (important for CORS)
         });
