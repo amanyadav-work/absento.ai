@@ -37,12 +37,15 @@ const login = async (req, res) => {
             const token = jwt.sign({ email, role }, process.env.JWT_SECRET);
 
             // Set token in cookie and respond with success
-            res.cookie('jwttoken', token, {
-                secure: true,
-                sameSite: 'None',
-                domain: 'absento-ai-6sst.vercel.app',
-            });
-            res.status(201).send({ message: "Operation Successful" });
+            // res.cookie('jwttoken', token, {
+            //     secure: true,
+            //     sameSite: 'None',
+            //     domain: 'absento-ai-6sst.vercel.app',
+            // });
+
+
+
+            res.status(201).send({ message: "Operation Successful", jwttoken: token });
         });
     } catch (error) {
         console.error(error);
@@ -119,12 +122,12 @@ const register = async (req, res) => {
         const token = jwt.sign({ email, role }, process.env.JWT_SECRET);
 
         // Set token in cookie and respond with success
-        res.cookie('jwttoken', token, {
-            secure: true,
-            sameSite: 'None',
-            domain: 'absento-ai-6sst.vercel.app',
-        });
-        res.status(201).send({ message: "Operation Successful" });
+        // res.cookie('jwttoken', token, {
+        //     secure: true,
+        //     sameSite: 'None',
+        //     domain: 'absento-ai-6sst.vercel.app',
+        // });
+        res.status(201).send({ message: "Operation Successful", jwttoken: token  });
 
     } catch (error) {
         console.error(error);

@@ -41,7 +41,7 @@ const Login = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [])
-  
+
 
   // Submit handlers
   const onFacultySubmit = async (data) => {
@@ -53,10 +53,27 @@ const Login = () => {
     const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData, credentials: 'include' });
 
     if (response.status === 201) {
+      const responseData = await response.json();
+      localStorage.setItem('jwttoken', responseData.jwttoken);
+
       toast.success("Faculty has been logged in");
-      const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
-      dispatch(setUser({...userData,role:"Faculty"}));
+      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
+      // dispatch(setUser({ ...userData, role: "Faculty" }));
+      // navigate('/onboarding');
+
+      // Fetch user data with the token from localStorage
+      const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
+
+      const userData = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`, // Use the token from localStorage
+        },
+      }).then((response) => response.json());
+
+      dispatch(setUser({ ...userData, role: "Faculty" }));
       navigate('/onboarding');
+
     } else {
       const msg = await response.json()
       toast.error(msg.message)
@@ -72,10 +89,25 @@ const Login = () => {
     const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData, credentials: 'include' });
 
     if (response.status === 201) {
+      const responseData = await response.json();
+      localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Admin has been logged in");
-      const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
-      dispatch(setUser({...userData,role:"Admin"}));
+      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
+
+      const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
+
+      const userData = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`, // Use the token from localStorage
+        },
+      }).then((response) => response.json());
+
+      dispatch(setUser({ ...userData, role: "Admin" }));
       navigate('/onboarding');
+
+
+
     } else {
       const msg = await response.json()
       toast.error(msg.message)
@@ -91,9 +123,19 @@ const Login = () => {
     const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData, credentials: 'include' });
 
     if (response.status === 201) {
+      const responseData = await response.json();
+      localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Parent has been logged in");
-      const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
-      dispatch(setUser({...userData,role:"Parent"}));
+      // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
+
+      const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
+      const userData = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`, // Use the token from localStorage
+        },
+      }).then((response) => response.json());
+      dispatch(setUser({ ...userData, role: "Parent" }));
       navigate('/onboarding');
     } else {
       const msg = await response.json()
