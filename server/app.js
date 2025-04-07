@@ -34,7 +34,7 @@ app.use(fileupload({
 app.get('/', (req, res) => {
     res.send('Welcome to the API!');  // Or any message you want
 });
-app.get('/', (req, res) => {
+app.get('/red', (req, res) => {
     res.json({mes:"DONTT"});  // Or any message you want
 });
 
