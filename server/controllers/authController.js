@@ -40,6 +40,7 @@ const login = async (req, res) => {
             res.cookie('jwttoken', token, {
                 secure: true,
                 sameSite: 'None',
+                domain: 'absento-ai-6sst.vercel.app',
             });
             res.status(201).send({ message: "Operation Successful" });
         });
@@ -121,6 +122,7 @@ const register = async (req, res) => {
         res.cookie('jwttoken', token, {
             secure: true,
             sameSite: 'None',
+            domain: 'absento-ai-6sst.vercel.app',
         });
         res.status(201).send({ message: "Operation Successful" });
 
