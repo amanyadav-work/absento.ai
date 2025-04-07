@@ -13,7 +13,7 @@ const ProtectedRoute = ({ children }) => {
     if (token) {
         decoded = jwtDecode(token)
     }
-    console.log("Token:", token, "Decoded:", decoded,"Js:",document.cookie);
+    console.log("Decoded:", decoded);
 
     // Ensure user data is available before applying redirect logic
     if (token && (!user || Object.keys(user).length === 0 || !decoded) && !['/', '/login', '/register'].includes(location.pathname)) {

@@ -59,7 +59,7 @@ const Login = () => {
       toast.success("Faculty has been logged in");
       // const userData = await (await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/user/getdata`, { method: 'GET', credentials: 'include' })).json();
       // dispatch(setUser({ ...userData, role: "Faculty" }));
-      // navigate('/onboarding');
+      // navigate('/dashboard');
 
       // Fetch user data with the token from localStorage
       const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
@@ -72,7 +72,7 @@ const Login = () => {
       }).then((response) => response.json());
 
       dispatch(setUser({ ...userData, role: "Faculty" }));
-      navigate('/onboarding');
+      navigate('/dashboard');
 
     } else {
       const msg = await response.json()
@@ -104,7 +104,7 @@ const Login = () => {
       }).then((response) => response.json());
 
       dispatch(setUser({ ...userData, role: "Admin" }));
-      navigate('/onboarding');
+      navigate('/dashboard');
 
 
 
@@ -136,7 +136,7 @@ const Login = () => {
         },
       }).then((response) => response.json());
       dispatch(setUser({ ...userData, role: "Parent" }));
-      navigate('/onboarding');
+      navigate('/dashboard');
     } else {
       const msg = await response.json()
       toast.error(msg.message)
