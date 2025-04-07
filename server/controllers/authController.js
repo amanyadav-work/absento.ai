@@ -38,7 +38,6 @@ const login = async (req, res) => {
 
             // Set token in cookie and respond with success
             res.cookie('jwttoken', token, {
-                httpOnly: true,
                 secure: true,
                 sameSite: 'None',
                 domain: '.vercel.app' // Shared domain between the front-end and back-end
@@ -121,7 +120,6 @@ const register = async (req, res) => {
 
         // Set token in cookie and respond with success
         res.cookie('jwttoken', token, {
-            httpOnly: true,
             secure: true,
             sameSite: 'None',
             domain: '.vercel.app' // Shared domain between the front-end and back-end
