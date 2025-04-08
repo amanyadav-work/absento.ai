@@ -11,7 +11,8 @@ import { toast } from "sonner";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import { setUser } from "@/redux/reducers/userReducer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { MoonLoader } from "react-spinners";
 
 // Validation schemas
 const facultySchema = z.object({
@@ -32,6 +33,7 @@ const parentSchema = z.object({
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isLoading, setIsLoading] = useState(false)
 
   // React Hook Form setup for each role (faculty, admin, parent)
   const { register: facultyRegister, handleSubmit: handleFacultySubmit, formState: { errors: facultyErrors } } = useForm({ resolver: zodResolver(facultySchema) });
@@ -45,6 +47,7 @@ const Login = () => {
 
   // Submit handlers
   const onFacultySubmit = async (data) => {
+    setIsLoading(true)
     const formData = new FormData();
     formData.append("role", "Faculty");
     formData.append("email", data.email);
@@ -78,15 +81,17 @@ const Login = () => {
       const msg = await response.json()
       toast.error(msg.message)
     }
+    setIsLoading(false)
   };
 
   const onAdminSubmit = async (data) => {
+    setIsLoading(true)
     const formData = new FormData();
     formData.append("role", "Admin");
     formData.append("email", data.email);
     formData.append("password", data.password);
 
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData,  });
+    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData, });
 
     if (response.status === 201) {
       const responseData = await response.json();
@@ -112,15 +117,17 @@ const Login = () => {
       const msg = await response.json()
       toast.error(msg.message)
     }
+    setIsLoading(false)
   };
 
   const onParentSubmit = async (data) => {
+    setIsLoading(true)
     const formData = new FormData();
     formData.append("role", "Parent");
     formData.append("email", data.email);
     formData.append("password", data.password);
 
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData,  });
+    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/login`, { method: 'POST', body: formData, });
 
     if (response.status === 201) {
       const responseData = await response.json();
@@ -141,6 +148,7 @@ const Login = () => {
       const msg = await response.json()
       toast.error(msg.message)
     }
+    setIsLoading(false)
   };
 
   return (
@@ -185,8 +193,8 @@ const Login = () => {
                     {adminErrors?.password && <span className="text-xs text-red-500">{adminErrors?.password.message}</span>}
                   </div>
 
-                  <Button type="submit" className="w-full py-2 px-4">
-                    Login Admin
+                  <Button type="submit" className="w-full py-2 px-4" disabled={isLoading}>
+                    {isLoading ? <MoonLoader size={12} /> : "Login Admin"}
                   </Button>
                 </form>
               </CardContent>
@@ -213,9 +221,10 @@ const Login = () => {
                     {facultyErrors?.password && <span className="text-xs text-red-500">{facultyErrors?.password.message}</span>}
                   </div>
 
-                  <Button type="submit" className="w-full py-2 px-4">
-                    Login Faculty
+                  <Button type="submit" className="w-full py-2 px-4" disabled={isLoading}>
+                    {isLoading ? <MoonLoader size={12} /> : "Login Faculty"}
                   </Button>
+
                 </form>
               </CardContent>
             </Card>
@@ -241,9 +250,10 @@ const Login = () => {
                     {parentErrors?.password && <span className="text-xs text-red-500">{parentErrors?.password.message}</span>}
                   </div>
 
-                  <Button type="submit" className="w-full py-2 px-4">
-                    Login Parent
+                  <Button type="submit" className="w-full py-2 px-4" disabled={isLoading}>
+                    {isLoading ? <MoonLoader size={12} /> : "Login Parent"}
                   </Button>
+
                 </form>
               </CardContent>
             </Card>
