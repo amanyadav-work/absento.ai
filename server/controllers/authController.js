@@ -5,6 +5,7 @@ const adminModel = require('../model/admin');
 const facultyModel = require('../model/faculty');
 const parentModel = require('../model/parent');
 const bcrypt = require('bcrypt');
+const uploadImage = require('../utils/cloudinary');
 
 
 
@@ -61,17 +62,7 @@ const hashPassword = async (password) => {
     return bcrypt.hash(password, salt);
 };
 
-// Helper function to upload image to Cloudinary
-const uploadImage = async (file) => {
-    try {
-        const fileData = await cloudinary.uploader.upload(file.tempFilePath);
-        return fileData.secure_url;
-    } catch (error) {
-        throw new Error("Error uploading the picture.");
-    }
-};
 
-// Register function with improvements
 const register = async (req, res) => {
     try {
         const { name, email, password, phone, role } = req.body;
@@ -96,13 +87,7 @@ const register = async (req, res) => {
         const hashedPassword = await hashPassword(password);
 
         let imageUrl = null;
-        if (role !== "Admin") {
-            // Upload image to Cloudinary if it's not Admin
-            imageUrl = await uploadImage(req.files.picture);
-        }
 
-
-        // Create the user based on the role
         let user;
         if (role === "Admin") {
             const existingUser = await adminModel.findOne({ email })
@@ -111,10 +96,12 @@ const register = async (req, res) => {
         } else if (role === "Faculty") {
             const existingUser = await facultyModel.findOne({ email })
             if (existingUser) return res.status(409).send({ message: "User Already Exists." })
+            imageUrl = await uploadImage(req.files.picture);
             user = await facultyModel.create({ name, email, phone, password: hashedPassword, imageUrl, collegeId: req.body.collegeId });
         } else if (role === "Parent") {
             const existingUser = await parentModel.findOne({ email })
             if (existingUser) return res.status(409).send({ message: "User Already Exists." })
+            imageUrl = await uploadImage(req.files.picture);
             user = await parentModel.create({ name, email, phone, password: hashedPassword, imageUrl });
         }
 
@@ -127,7 +114,7 @@ const register = async (req, res) => {
         //     sameSite: 'None',
         //     domain: 'absento-ai-6sst.vercel.app',
         // });
-        res.status(201).send({ message: "Operation Successful", jwttoken: token  });
+        res.status(201).send({ message: "Operation Successful", jwttoken: token });
 
     } catch (error) {
         console.error(error);

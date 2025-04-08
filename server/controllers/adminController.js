@@ -1,7 +1,8 @@
 require('dotenv').config();
 const cloudinary = require('cloudinary').v2;
 const collegeModel = require('../model/college')
-const adminModel = require('../model/admin')
+const adminModel = require('../model/admin');
+const uploadImage = require('../utils/cloudinary');
 
 cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
@@ -9,15 +10,6 @@ cloudinary.config({
     api_secret: process.env.CLOUDINARY_API_SECRET
 });
 
-// Helper function to upload image to Cloudinary
-const uploadImage = async (file) => {
-    try {
-        const fileData = await cloudinary.uploader.upload(file.tempFilePath);
-        return fileData.secure_url;
-    } catch (error) {
-        throw new Error("Error uploading the picture.");
-    }
-};
 
 const addCollege = async (req, res) => {
     const { name, courses } = req.body;
