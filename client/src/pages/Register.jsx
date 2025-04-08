@@ -137,13 +137,13 @@ const Register = () => {
     if (data.picture[0]) {
       formData.append("picture", data.picture[0]);
     }
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
+    const facultyRegisterResponse = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
       method: 'POST',
       body: formData,
     });
 
-    if (response.status === 201) {
-      const responseData = await response.json();
+    if (facultyRegisterResponse.status === 201) {
+      const responseData = await facultyRegisterResponse.json();
       localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Faculty has been created successfully.");
       const token = localStorage.getItem('jwttoken');
@@ -179,13 +179,13 @@ const Register = () => {
     }
 
     // Send the data to your server or API
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
+    const adminRegisterResponse = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
       method: 'POST',
       body: formData,
     });
 
-    if (response.status === 201) {
-      const responseData = await response.json();
+    if (adminRegisterResponse.status === 201) {
+      const responseData = await adminRegisterResponse.json();
       localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Admin has been created successfully.");
       const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
@@ -224,14 +224,14 @@ const Register = () => {
     }
 
     // Send the data to your server or API
-    const response = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
+    const parentRegisterResponse = await fetch(`${import.meta.env.VITE_REACT_APP_BACKEND_BASEURL}/auth/register`, {
       method: 'POST',
       body: formData,
     });
 
 
-    if (response.status === 201) {
-      const responseData = await response.json();
+    if (parentRegisterResponse.status === 201) {
+      const responseData = await parentRegisterResponse.json();
       localStorage.setItem('jwttoken', responseData.jwttoken);
       toast.success("Parent has been created successfully.");
       const token = localStorage.getItem('jwttoken'); // Get the token from localStorage
