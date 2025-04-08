@@ -156,7 +156,7 @@ const Register = () => {
       const userData = await response.json()
       dispatch(setUser({ ...userData, role: "Faculty" }));
       navigate('/onboarding')
-    } else if (response.status === 409) {
+    } else if (facultyRegisterResponse.status === 409) {
       toast.error("User Already Exists. Please Login"); // Error toast
     } else {
       toast.error("Failed to register faculty. Please try again.");
@@ -198,7 +198,7 @@ const Register = () => {
       const userData = await response.json()
       dispatch(setUser({ ...userData, role: "Admin" }));
       navigate('/onboarding')
-    } else if (response.status === 409) {
+    } else if (adminRegisterResponse.status === 409) {
       toast.error("User Already Exists. Please Login"); // Error toast
     } else {
       toast.error("Failed to register admin. Please try again."); // Error toast
@@ -245,7 +245,7 @@ const Register = () => {
       const userData = await response.json()
       dispatch(setUser({ ...userData, role: "Parent" }));
       navigate('/onboarding')
-    } else if (response.status === 409) {
+    } else if (parentRegisterResponse.status === 409) {
       toast.error("User Already Exists. Please Login"); // Error toast
     }
     else {

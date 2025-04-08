@@ -138,7 +138,6 @@ const Onboarding = () => {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
         },
       });
 
@@ -208,7 +207,6 @@ const Onboarding = () => {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
         },
         body: formData
       });
@@ -245,7 +243,6 @@ const Onboarding = () => {
           method: 'POST',
           headers: {
             'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
           },
           body: formData
         });
@@ -278,7 +275,6 @@ const Onboarding = () => {
         method: 'PUT',
         headers: {
           'Authorization': `Bearer ${token}`,
-          'Content-Type': 'application/json',
         },
         body: formData
       });

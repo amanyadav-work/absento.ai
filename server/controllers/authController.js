@@ -1,5 +1,4 @@
 require('dotenv').config();
-const cloudinary = require('cloudinary').v2;
 const jwt = require('jsonwebtoken');
 const adminModel = require('../model/admin');
 const facultyModel = require('../model/faculty');
@@ -9,11 +8,6 @@ const uploadImage = require('../utils/cloudinary');
 
 
 
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-});
 
 const login = async (req, res) => {
     const { email, password, role } = req.body;
