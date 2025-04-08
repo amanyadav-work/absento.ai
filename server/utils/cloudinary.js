@@ -9,12 +9,15 @@ cloudinary.config({
 
 // Helper function to upload image to Cloudinary
 const uploadImage = async (file) => {
+    console.log(file);
+    
     try {
         const fileData = await cloudinary.uploader.upload(file.data, {
             resource_type: 'auto',
         });
         return fileData.secure_url;
     } catch (error) {
+        console.log("ERROR",error);
         throw new Error("Error uploading the picture.");
     }
 };
