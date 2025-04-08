@@ -64,7 +64,7 @@ const Header = () => {
                         <Link to="/" className="hover:text-gray-200 flex gap-1 items-center">
                             <img src="/Logo.png" alt="" className={`w-[23px] -mt-0.5 ${theme == "dark" ? "brightness-[5000]" : ""}`} />
                             <span className="border-[1.5px] rounded-sm px-2 py-1">
-                                Absento
+                                Absento.ai
                             </span>
                         </Link>
                     </h1>

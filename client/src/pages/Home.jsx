@@ -16,7 +16,7 @@ const Home = () => {
             {/* Hero Section */}
             <section className="pb-0 pt-24 bg-linear-210">
                 <div className="container mx-auto text-center flex flex-col items-center justify-center">
-                    <h2 className="text-4xl font-bold mb-4">Turn product ideas into concepts instantly with GenAI</h2>
+                    <h2 className="text-4xl font-bold mb-4">Take the hassle out of attendance with absento.ai</h2>
                     <p className="text-lg mb-8">Revolutionizing attendance management with face recognition and AI-powered trend prediction.</p>
                     <img src="https://www.jibble.io/wp-content/uploads/2022/04/Automated-Timesheet-e1656049174185.png" alt="" className={`${theme === "dark" ? "invert-100" : "border rounded-sm shadow-sm"} w-[65%] my-5`} />
                     {/* <button className="py-3 px-6 rounded-lg font-semibold hover:bg-gray-200 transition">Get Started</button> */}
