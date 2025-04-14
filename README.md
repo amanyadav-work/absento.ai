@@ -11,6 +11,25 @@ See all projects at: [amanwebdev.site](https://amanwebdev.site/)
 
 It also has role-based access: Admins, Faculty, and Parents. Admins can manage colleges and faculty, while Faculty can take attendance and view course-specific statistics. Parents can track their children's attendance and view predictions.
 
+
+## 🔑 Try It Out
+
+To check functionality, you can log in using the following credentials:
+
+- **Admin Login**
+  - Email: `aman@gmail.com`
+  - Password: `jioiooiojjjojojijijo`
+
+- **Faculty Login**
+  - Email: `pandey@gmail.com`
+  - Password: `jioiooiojjjojojijijo`
+
+- **Parent Login**
+  - Email: `mark@gmail.com`
+  - Password: `jioiooiojjjojojijijo`
+
+---
+
 ## Features
 
 ### Attendance
