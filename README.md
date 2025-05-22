@@ -7,7 +7,7 @@ Visit the live deployment at: [Absento.ai](https://absento-ai.vercel.app/)
 
 See all projects at: [amanwebdev.site](https://amanwebdev.site/)
 
-![Absento.ai Thumbnail](https://amanyadav-work.github.io/portfolio/public/assets/Abesento-ai-face-recognition-system.webp)
+![Absento.ai Thumbnail](https://raw.githubusercontent.com/amanyadav-work/portfolio/refs/heads/main/public/assets/Abesento-ai-face-recognition-system.webp)
 
 It also has role-based access: Admins, Faculty, and Parents. Admins can manage colleges and faculty, while Faculty can take attendance and view course-specific statistics. Parents can track their children's attendance and view predictions.
 
